@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 import re
 import bcrypt
 from django.db import models
+password = b"kas135!jdlk!jas124!3dlkjl!135kjasdl!kjasd"
 
 # Create your models here.
 class UserManager(models.Manager):
@@ -41,16 +42,17 @@ class UserManager(models.Manager):
 
     def loginvalidate(self, postdata):
         results = {'status':True, 'errors':[], 'user':None}
-        user = User.objects.filter(email = postdata['email'])
-        print user[0]
-        # user = User.objects.filter(email=postdata['email'])
-        # userlen = len(user)
-        # if userlen > 1:
-        #     if user['password'] != \
-        #     bcrypt.hashpw(postdata['password'].encode(), user['password'].encode()):
-        #         results['status'] = False
-        # else:
-        #     results['user'] = user[0]    
+        user = User.objects.filter(email=postdata['email'])
+        userlen = len(user)
+        if userlen > 0:
+            if bcrypt.hashpw(postdata['password'], user['password']) == user['password']:
+                print "It Matches! set userid in results"
+                results['user'] = user['id']
+            else:
+                print "It Does not Match :("
+                results['status'] = False
+        else:
+            results['status'] = False
         return results
 
 class User(models.Model):
