@@ -26,15 +26,10 @@ def login(request):
         messages.error(request, 'Login failed.')
         return redirect('/')
     else:
-        print results['user'], "1"*50
         user = User.objects.get(id=results['user'])
-        print user.id, "4"*50
         request.session['userid'] = user.id
-        print "Just set session userid: ", request.session['userid'], "*"*50
         request.session['first_name'] = user.first_name
-        print "Just set session first_name: ", request.session['first_name'], "*"*50
         request.session['last_name'] = user.last_name
-        print "Just set session last_name: ", request.session['last_name'], "*"*50
     return redirect('/mainpage')
 
 def logout(request):
