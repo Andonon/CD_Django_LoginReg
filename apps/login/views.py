@@ -23,16 +23,29 @@ def register(request):
 def login(request):
     results = User.objects.loginvalidate(request.POST)
     if results['status'] is False:
-        messages.error(request, 'Please check your login and try again...')
+        messages.error(request, 'Login failed.')
         return redirect('/')
-    # request.session['userid'] = results['user'].id
-    # request.session['first_name'] = results['user'].first_name
-    # request.session['last_name'] = results['user'].last_name
+    else:
+        print results['user'], "1"*50
+        user = User.objects.get(id=results['user'])
+        print user.id, "4"*50
+        request.session['userid'] = user.id
+        print "Just set session userid: ", request.session['userid'], "*"*50
+        request.session['first_name'] = user.first_name
+        print "Just set session first_name: ", request.session['first_name'], "*"*50
+        request.session['last_name'] = user.last_name
+        print "Just set session last_name: ", request.session['last_name'], "*"*50
     return redirect('/mainpage')
 
 def logout(request):
-    request.session.all().flush()
+    flushcookie = request.session.flush()
     return redirect('/')
 
 def mainpage(request):
+    try:
+        request.session['userid']
+    except KeyError:
+        flushcookie = request.session.flush()
+        messages.error(request, 'Oh Snap! There is no session cookie detected, please login.')
+        return redirect('/')
     return render(request, 'login/mainpage.html')

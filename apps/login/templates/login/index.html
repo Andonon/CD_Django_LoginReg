@@ -23,8 +23,8 @@
                 <input type="text" name="last_name" placeholder="Enter last name here..."><br><br>
                 <label for="email">Email:</label>
                 <input type="text" name="email" placeholder="Enter email here..."><br><br>
-                <label for="password">Password:</label>
-                <input type="password" name="password" placeholder="Enter password here..."><br><br>
+                <label for="userpassword">Password:</label>
+                <input type="password" name="userpassword" placeholder="Enter password here..."><br><br>
                 <label for="cpassword">Confirm Password:</label>
                 <input type="password" name="cpassword" placeholder="Re-enter password here..."><br><br>
                 <input type="submit" name="registerbutton" value="Register">
@@ -34,11 +34,14 @@
                 {% csrf_token %}
                 <label for="email">Email:</label>
                 <input type="text" name="email" placeholder="Enter email here..."><br><br>
-                <label for="password">Password:</label>
-                <input type="password" name="password" placeholder="Enter password here..."><br><br>
+                <label for="userpassword">Password:</label>
+                <input type="password" name="userpassword" placeholder="Enter password here..."><br><br>
                 <input type="submit" name="registerbutton" value="Login">
             </form> 
-            
+            <h3>Already Logged In?:</h3>
+            <form action="/mainpage">
+                <button>Go to Main Page</button>
+            </form>         
         </div>
     </body>
 </html>
