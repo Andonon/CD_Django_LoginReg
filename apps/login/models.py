@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 import re
 import bcrypt
 from django.db import models
-password = b"kas135!jdlk!jas124!3dlkjl!135kjasdl!kjasd"
 
 # Create your models here.
 class UserManager(models.Manager):
